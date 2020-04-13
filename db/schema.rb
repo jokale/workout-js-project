@@ -31,6 +31,10 @@ ActiveRecord::Schema.define(version: 2020_04_12_113722) do
     t.integer "body_part_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["athlete_id"], name: "index_workouts_on_athlete_id"
+    t.index ["body_part_id"], name: "index_workouts_on_body_part_id"
   end
 
+  add_foreign_key "workouts", "athletes"
+  add_foreign_key "workouts", "body_parts"
 end

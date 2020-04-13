@@ -1,13 +1,13 @@
 class WorkoutsController < ApplicationController
     def index 
         @workouts = Workout.all 
-        render json: @workouts, status:200 
+        render json: @workouts, include: [:athlete, :body_part] 
     end 
 
 
     def show 
         @workout = Workout.find(params[:id])
-        render json: @workout, status:200 
+        render json: @workout, include: [:athlete, :body_part],status:200 
     end 
 
     def create 
