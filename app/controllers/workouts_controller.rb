@@ -11,8 +11,18 @@ class WorkoutsController < ApplicationController
     end 
 
     def create 
-        @workout = Workout.create(workout_params)
+        @athlete = Athlete.find_or_create_by(name:params[:athlete_name])
+        @bodypart = BodyPart.find_or_create_by(name:params[:body_part_name])
+
+        @workout = Workout.new(workout_params)
+        @workout.athlete= @athlete
+        @workout.body_part= @bodypart
+        #add if else 
+       if @workout.save 
         render json: @workout, status:200 
+       else 
+        render json:{error: @workout.errors.full_messages.to_sentence}, status:422
+        end 
     end 
 
     def update
